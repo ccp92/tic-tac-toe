@@ -1,9 +1,12 @@
+# frozen_String_literal: true
+
 class AIPlayer
   def initialize(game_state: game_state)
     @game_state = game_state
   end
 
   def has_turn
-    @game_state.save([:O, nil, nil, nil, nil, nil, nil, nil, nil])
+    grid_updater = UpdateGrid.new(@game_state)
+    grid_updater.execute(:O, 0)
   end
 end

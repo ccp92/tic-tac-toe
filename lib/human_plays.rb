@@ -1,16 +1,22 @@
+# frozen_string_literal: true
+
 class HumanPlayer
   def initialize(game_state: game_state)
     @game_state = game_state
   end
 
   def has_turn(position)
-    @game_state.save([nil, nil, nil, nil, nil, nil, nil, nil, nil]) if @game_state.state.nil?
+    UpdateGrid.new(@game_state)
+    return { errors: [:space_is_taken] } if space_is_taken?(position)
+    return { errors: [:space_does_not_exist] } if !position.between?(0,8)
+    grid_updater = UpdateGrid.new(@game_state)
+    grid_updater.execute(:X, position)
+    {}
+  end
 
-    if @game_state.state[position] == :O
-      raise 'This space is taken'
-    else
-      @game_state.state[position] = :X
-      @game_state.save(@game_state.state)
-    end
+  private
+
+  def space_is_taken?(position)
+    [:O,:X].include? @game_state.state[position]
   end
 end

@@ -32,4 +32,13 @@ describe 'a game of tic-tac-toe' do
     grid = response[:grid]
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
+
+  xit 'knows when there is a win' do
+    game_state = spy([nil, :O, :O, :X, nil, :X, nil, :X, nil])
+    result = AIPlayer.new(game_state: game_state).has_turn
+    response = view_grid.execute({})
+    grid = response[:grid]
+    expect(grid).to eq([[:O, :O, :O], [:X, nil, :X], [nil, :X, nil]])
+    expect(result).to eq(result: :winner)
+  end
 end
