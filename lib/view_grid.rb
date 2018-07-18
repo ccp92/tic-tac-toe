@@ -4,8 +4,14 @@ class ViewGrid
   end
 
   def execute(*)
-    {
-      grid: [@game_state[0..2],@game_state[3..5],@game_state[6..8]]
-    }
+    if @game_state.state.nil?
+      {
+        grid: [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+      }
+    else
+      {
+        grid: [@game_state.state[0..2],@game_state.state[3..5],@game_state.state[6..8]]
+      }
+    end
   end
 end

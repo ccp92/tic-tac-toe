@@ -1,10 +1,8 @@
-# describe AIPlays do
-#   it 'the computer plays a O at the top left' do
-#     grid = spy(UpdateGrid.new)
-#     a_turn = AIPlays.new.have_a_go
+describe AIPlayer do
+  it 'adds a O at the beginning of game state' do
+    game_state = spy
+    AIPlayer.new(game_state: game_state).has_turn
 
-#     expect(grid).to have_received(have_a_go) do |'O'|
-#       expect('O'.coordintes).to eq([0, 0])
-#     end
-#   end
-# end
+    expect(game_state).to have_received(:save)
+  end
+end

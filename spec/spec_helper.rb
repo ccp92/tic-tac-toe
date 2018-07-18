@@ -1,5 +1,6 @@
 require 'view_grid'
 require 'ai_plays'
+require 'human_plays'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
