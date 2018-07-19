@@ -2,9 +2,14 @@ describe 'a game of tic-tac-toe' do
   class GameStatePosition
 
     attr_reader :state
+    attr_reader :result
 
     def save(state)
       @state = state
+    end
+
+    def save_result(result)
+      @result = result
     end
   end
 
@@ -19,26 +24,47 @@ describe 'a game of tic-tac-toe' do
   end
 
   it 'has the computer having the first turn' do
-    AIPlayer.new(game_state: game_state).has_turn
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)
     response = view_grid.execute({})
     grid = response[:grid]
     expect(grid).to eq([[:O, nil, nil], [nil, nil, nil], [nil, nil, nil]])
   end
 
   it 'allows a human to take a valid turn' do
-    AIPlayer.new(game_state: game_state).has_turn
-    HumanPlayer.new(game_state: game_state).has_turn(1)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)
+    HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(1)
     response = view_grid.execute({})
     grid = response[:grid]
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
 
-  xit 'knows when there is a win' do
-    game_state = spy([nil, :O, :O, :X, nil, :X, nil, :X, nil])
-    result = AIPlayer.new(game_state: game_state).has_turn
-    response = view_grid.execute({})
-    grid = response[:grid]
-    expect(grid).to eq([[:O, :O, :O], [:X, nil, :X], [nil, :X, nil]])
-    expect(result).to eq(result: :winner)
+  it 'can return a win result' do
+    update_grid = UpdateGrid.new(game_state: game_state)
+    update_grid.execute(:X, 7)
+    update_grid.execute(:O, 1)
+    update_grid.execute(:X, 3)
+    update_grid.execute(:O, 2)
+    update_grid.execute(:X, 5)
+    update_grid.execute(:O, 0)
+
+    view_new_grid = ViewGrid.new(game_state: game_state)
+    response = view_new_grid.execute({})
+
+    expect(response[:result]).to eq(:winner)
+  end
+
+  it 'can return a winning board' do
+    update_grid = UpdateGrid.new(game_state: game_state)
+    update_grid.execute(:X, 7)
+    update_grid.execute(:O, 1)
+    update_grid.execute(:X, 3)
+    update_grid.execute(:O, 2)
+    update_grid.execute(:X, 5)
+    update_grid.execute(:O, 0)
+
+    view_new_grid = ViewGrid.new(game_state: game_state)
+    response = view_new_grid.execute({})
+
+    expect(response[:grid]).to eq([[:O, :O, :O], [:X, nil, :X], [nil, :X, nil]])
   end
 end
