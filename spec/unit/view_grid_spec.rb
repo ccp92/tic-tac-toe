@@ -55,4 +55,13 @@ describe ViewGrid do
 
     expect(response).to eq({ grid: [[:X, nil, :X], [nil, :X, nil], [:O, :O, :O]], result: :winner })
   end
+
+  it 'can return a win with Os on the left column' do
+    game_state = spy(state: [:O, :X, :X, :O, nil, :X, :O, nil, nil], result: :winner)
+
+    view_new_grid = ViewGrid.new(game_state: game_state)
+    response = view_new_grid.execute({})
+
+    expect(response).to eq({ grid: [[:O, :X, :X], [:O, nil, :X], [:O, nil, nil]], result: :winner })
+  end
 end
