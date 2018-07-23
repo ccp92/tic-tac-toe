@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe UpdateGrid do
   it 'can output :winner when the computer has won with top row' do
     game_state = spy(state: [nil, :O, :O, :X, nil, :X, nil, :X, nil])

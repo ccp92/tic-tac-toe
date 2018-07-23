@@ -14,6 +14,7 @@ class UpdateGrid
     @game_state.save(@game_state.state)
     @game_state.save_result(:draw) unless spaces_remain?
     @game_state.save_result(:winner) if winner?
+
   end
 
   private

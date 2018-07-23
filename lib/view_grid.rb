@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ViewGrid
   def initialize(game_state:)
     @game_state = game_state

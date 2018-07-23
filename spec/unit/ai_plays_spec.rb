@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe AIPlayer do
   it 'adds a O at the beginning of game state' do
     game_state = spy
