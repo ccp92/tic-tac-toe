@@ -38,7 +38,7 @@ describe 'a game of tic-tac-toe' do
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
 
-  it 'can return a win result' do
+  it 'can return a win with 0s on top row' do
     update_grid = UpdateGrid.new(game_state: game_state)
     update_grid.execute(:X, 7)
     update_grid.execute(:O, 1)
@@ -50,21 +50,36 @@ describe 'a game of tic-tac-toe' do
     view_new_grid = ViewGrid.new(game_state: game_state)
     response = view_new_grid.execute({})
 
-    expect(response[:result]).to eq(:winner)
+    expect(response).to eq({ grid: [[:O, :O, :O], [:X, nil, :X], [nil, :X, nil]], result: :winner })
   end
 
-  it 'can return a winning board' do
+  it 'can return a win with Os on middle row' do
     update_grid = UpdateGrid.new(game_state: game_state)
+    update_grid.execute(:X, 0)
+    update_grid.execute(:O, 3)
     update_grid.execute(:X, 7)
-    update_grid.execute(:O, 1)
-    update_grid.execute(:X, 3)
-    update_grid.execute(:O, 2)
-    update_grid.execute(:X, 5)
-    update_grid.execute(:O, 0)
+    update_grid.execute(:O, 4)
+    update_grid.execute(:X, 2)
+    update_grid.execute(:O, 5)
 
     view_new_grid = ViewGrid.new(game_state: game_state)
     response = view_new_grid.execute({})
 
-    expect(response[:grid]).to eq([[:O, :O, :O], [:X, nil, :X], [nil, :X, nil]])
+    expect(response).to eq({ grid: [[:X, nil, :X], [:O, :O, :O], [nil, :X, nil]], result: :winner })
+  end
+
+  it 'can return a win with Os on middle row' do
+    update_grid = UpdateGrid.new(game_state: game_state)
+    update_grid.execute(:X, 0)
+    update_grid.execute(:O, 6)
+    update_grid.execute(:X, 5)
+    update_grid.execute(:O, 7)
+    update_grid.execute(:X, 2)
+    update_grid.execute(:O, 8)
+
+    view_new_grid = ViewGrid.new(game_state: game_state)
+    response = view_new_grid.execute({})
+
+    expect(response).to eq({ grid: [[:X, nil, :X], [nil, nil, :X], [:O, :O, :O]], result: :winner })
   end
 end

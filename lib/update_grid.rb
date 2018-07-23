@@ -18,6 +18,12 @@ class UpdateGrid
   private
 
   def winner?
-    @game_state.state[0..2] == [:O, :O, :O]
+    horizontal_win_scenarios.include?([:O, :O, :O])
   end
+
+  def horizontal_win_scenarios
+    [@game_state.state[0..2], @game_state.state[3..5], @game_state.state[6..8]]
+  end
+
+
 end

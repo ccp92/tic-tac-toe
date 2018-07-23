@@ -10,6 +10,7 @@ describe HumanPlayer do
     game_state = spy(state: [:O, nil, nil, nil, nil, nil, nil, nil, nil])
     expect(HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)).to eq(errors: [:space_is_taken])
   end
+
   it 'does not allow a human to play in a position occupied by themselves' do
     game_state = spy(state: [:X, nil, nil, nil, nil, nil, nil, nil, nil])
     expect(HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)).to eq(errors: [:space_is_taken])
