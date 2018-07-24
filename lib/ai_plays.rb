@@ -6,17 +6,8 @@ class AIPlayer
   end
 
   def execute(*)
-
-    nil_indices = {}
-    @update_grid.game_state.state.each_index do |index|
-      if @update_grid.game_state.state[index].nil?
-        temp_board = @update_grid.game_state.state.dup
-        temp_board[index] = :O
-        nil_indices[index] = 0 unless spaces_remain?(temp_board)
-        nil_indices[index] = 10 if winner?(:O, temp_board)
-        nil_indices[index] = -10 if winner?(:X, temp_board)
-      end
-    end
+    nil_indices = terminal_state_scores
+    pp nil_indices
     has_turn(nil_indices.key(10))
   end
 
@@ -26,6 +17,19 @@ class AIPlayer
   end
 
   private
+
+  def terminal_state_scores
+    nil_indices = {}
+    @update_grid.game_state.state.each_index do |index|
+      next unless @update_grid.game_state.state[index].nil?
+      temp_board = @update_grid.game_state.state.dup
+      temp_board[index] = :O
+      nil_indices[index] = 0 unless spaces_remain?(temp_board)
+      nil_indices[index] = 10 if winner?(:O, temp_board)
+      nil_indices[index] = -10 if winner?(:X, temp_board)
+    end
+    nil_indices
+  end
 
   def winner?(player, board)
     lines = [horizontal_lines(board), vertical_lines(board), diagonal_lines(board)].flatten(1)
