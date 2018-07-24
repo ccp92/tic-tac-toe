@@ -3,15 +3,13 @@
 class AIPlayer
   def initialize(update_grid:)
     @update_grid = update_grid
-    @temp_board = update_grid.game_state.state.dup
+    @board = update_grid.game_state.state
   end
 
   def execute(*)
-    nil_indices = []
-    board = @update_grid.game_state.state
-    board.each_index { |i| nil_indices.push(i) if board[i].nil? }
+    empty_spaces = find_empty_spaces
     best_turn = minimax.index(minimax.max)
-    has_turn(nil_indices[best_turn])
+    has_turn(empty_spaces[best_turn])
 
 
   end
@@ -24,7 +22,7 @@ class AIPlayer
   def minimax
     turn_scores = []
     scores = generate_scores
-    turns = @update_grid.game_state.state.count(nil)
+    turns = @board.count(nil)
     (0...scores.length).step(scores.length / turns) do |index|
       turn_scores.push(scores[index, scores.length / turns].min)
     end
@@ -32,34 +30,39 @@ class AIPlayer
   end
 
   def tree
-    board = @update_grid.game_state.state
-    nil_indices = []
-    board.each_index { |i| nil_indices.push(i) if board[i].nil? }
-    nil_indices.permutation.to_a
+    find_empty_spaces.permutation.to_a
   end
 
   def generate_scores
     scores = []
     tree.each do |branch|
-      board = @update_grid.game_state.state.dup
-      player = :O
-      branch.each do |move|
-        board[move] = player
-        if player == :O
-          player = :X
-        else
-          player = :O
-        end
-        unless assign_a_score(board).nil?
-          scores.push(assign_a_score(board))
-          break
-        end
-      end
+      scores.push(branch_score(branch))
     end
     scores
   end
 
   private
+
+  def branch_score(branch)
+    board = @board.dup
+    player = :O
+    branch.each do |move|
+      board[move] = player
+      player = player_switch(player)
+      return assign_a_score(board) unless assign_a_score(board).nil?
+    end
+  end
+
+  def find_empty_spaces
+    empty_spaces = []
+    @board.each_index { |i| empty_spaces.push(i) if @board[i].nil? }
+    empty_spaces
+  end
+
+  def player_switch(player)
+    return :X if player == :O
+    :O
+  end
 
   def assign_a_score(board)
     return 10 if winner?(:O, board)
