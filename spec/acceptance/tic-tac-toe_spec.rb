@@ -120,6 +120,15 @@ describe 'a game of tic-tac-toe' do
     expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, :X], [nil, :O, nil]], result: :winner)
   end
 
+  it 'will make the ai pick the draw when optimal' do
+    new_board = board_set_up([:O, 0], [:X, 1], [:O, 2], [:X, 4], [:O, 7], [:X, 3])
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(8)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    response = response = view_grid.execute({})
+    expect(response).to eq(grid: [[:O, :X, :O], [:X, :X, :O], [:O, :O, :X]], result: :draw)
+  end
+
   private
 
   def board_set_up(*args)

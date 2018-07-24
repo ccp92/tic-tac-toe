@@ -3,12 +3,17 @@
 class AIPlayer
   def initialize(update_grid:)
     @update_grid = update_grid
+    @temp_board = update_grid.game_state.state.dup
   end
 
   def execute(*)
-    nil_indices = terminal_state_scores
-    pp nil_indices
-    has_turn(nil_indices.key(10))
+    nil_indices = []
+    board = @update_grid.game_state.state
+    board.each_index { |i| nil_indices.push(i) if board[i].nil? }
+    best_turn = minimax.index(minimax.max)
+    has_turn(nil_indices[best_turn])
+
+
   end
 
   def has_turn(position)
@@ -16,19 +21,50 @@ class AIPlayer
     {}
   end
 
+  def minimax
+    turn_scores = []
+    scores = generate_scores
+    turns = @update_grid.game_state.state.count(nil)
+    (0...scores.length).step(scores.length / turns) do |index|
+      turn_scores.push(scores[index, scores.length / turns].min)
+    end
+    turn_scores
+  end
+
+  def tree
+    board = @update_grid.game_state.state
+    nil_indices = []
+    board.each_index { |i| nil_indices.push(i) if board[i].nil? }
+    nil_indices.permutation.to_a
+  end
+
+  def generate_scores
+    scores = []
+    tree.each do |branch|
+      board = @update_grid.game_state.state.dup
+      player = :O
+      branch.each do |move|
+        board[move] = player
+        if player == :O
+          player = :X
+        else
+          player = :O
+        end
+        unless assign_a_score(board).nil?
+          scores.push(assign_a_score(board))
+          break
+        end
+      end
+    end
+    scores
+  end
+
   private
 
-  def terminal_state_scores
-    nil_indices = {}
-    @update_grid.game_state.state.each_index do |index|
-      next unless @update_grid.game_state.state[index].nil?
-      temp_board = @update_grid.game_state.state.dup
-      temp_board[index] = :O
-      nil_indices[index] = 0 unless spaces_remain?(temp_board)
-      nil_indices[index] = 10 if winner?(:O, temp_board)
-      nil_indices[index] = -10 if winner?(:X, temp_board)
-    end
-    nil_indices
+  def assign_a_score(board)
+    return 10 if winner?(:O, board)
+    return -10 if winner?(:X, board)
+    return 0 unless spaces_remain?(board)
   end
 
   def winner?(player, board)
