@@ -6,7 +6,6 @@ class HumanPlayer
   end
 
   def has_turn(position)
-    @update_grid
     return { errors: [:space_is_taken] } if space_is_taken?(position)
     return { errors: [:space_does_not_exist] } unless position.between?(0, 8)
     return { errors: [:one_turn_per_player] } if had_more_turns?
@@ -17,7 +16,7 @@ class HumanPlayer
   private
 
   def space_is_taken?(position)
-    [:O, :X].include? @update_grid.game_state.state[position]
+    %i[O X].include? @update_grid.game_state.state[position]
   end
 
   def had_more_turns?
