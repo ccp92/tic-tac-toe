@@ -6,12 +6,10 @@ class AIPlayer
     @board = update_grid.game_state.state
   end
 
-  def execute(*)
+  def execute
     empty_spaces = find_empty_spaces
     best_turn = minimax.index(minimax.max)
     has_turn(empty_spaces[best_turn])
-
-
   end
 
   def has_turn(position)

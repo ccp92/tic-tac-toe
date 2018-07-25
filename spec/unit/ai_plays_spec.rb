@@ -10,13 +10,13 @@ describe AIPlayer do
 
   it 'will make the ai pick the winning move with one last choice' do
     game_state = spy(state: [:X, :O, :O, :O, :O, :X, :X, nil, :X])
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
     expect(game_state.state).to eq([:X, :O, :O, :O, :O, :X, :X, :O, :X])
   end
 
   it 'will make the ai pick the winning move over a loss with two choices' do
     game_state = spy(state: [:X, :O, :X, :X, :X, nil, :O, :O, nil])
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
     expect(game_state.state).to eq([:X, :O, :X, :X, :X, nil, :O, :O, :O])
   end
 
@@ -46,7 +46,7 @@ describe AIPlayer do
 
   it 'will analyse the scores of every branch to assign a score to each next move' do
     game_state = spy(state: [:O, :X, :O, :X, :X, nil, nil, :O, nil])
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
     expect(game_state).to have_received(:save).with([:O, :X, :O, :X, :X, :O, nil, :O, nil])
   end
 end
