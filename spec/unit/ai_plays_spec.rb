@@ -37,4 +37,10 @@ describe AIPlayer do
     scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).minimax
     expect(scores).to eq([10, -10, -10, -10])
   end
+
+  it 'will chose the quickest route to a win' do
+    game_state = spy(state: [:X, :O, nil, nil, :O, :X, nil, nil, nil])
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
+    expect(game_state).to have_received(:save).with([:X, :O, nil, nil, :O, :X, nil, :O, nil])
+  end
 end

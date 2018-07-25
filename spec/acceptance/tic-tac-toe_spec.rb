@@ -145,13 +145,20 @@ describe 'a game of tic-tac-toe' do
     expect(response).to eq(grid: [[:X, :O, nil], [:O, :O, :X], [:X, nil, nil]], result: nil)
   end
 
-  it 'will make the ai play to a draw against a perfect human' do
+  xit 'will make the ai play to a draw against a perfect human' do
     player_turn(0)
     ai_turn
     player_turn(8)
     ai_turn
     response = view_grid.execute({})
     expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, nil], [nil, nil, :X]], result: nil)
+  end
+
+  it 'will make the ai pick the winning move out of two choices' do
+    new_board = board_set_up([:X, 0], [:O, 1], [:X, 5], [:O, 4])
+    ai_turn
+    response = view_grid.execute({})
+    expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, :X], [nil, :O, nil]], result: :winner)
   end
 
   private

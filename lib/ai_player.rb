@@ -8,7 +8,8 @@ class AIPlayer
 
   def execute
     empty_spaces = Minimax.new(update_grid: @update_grid).find_empty_spaces
-    best_turn = minimax.index(minimax.max)
+    minimax_result = minimax
+    best_turn = minimax_result.index(minimax_result.max)
     plays(empty_spaces[best_turn])
   end
 
