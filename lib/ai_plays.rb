@@ -17,31 +17,36 @@ class AIPlayer
     {}
   end
 
-  def minimax
-    turn_scores = []
-    scores = generate_scores
-    turns = @board.count(nil)
-    (0...scores.length).step(scores.length / turns) do |index|
-      turn_scores.push(scores[index, scores.length / turns].min)
-    end
-    turn_scores
-  end
-
   def tree
     find_empty_spaces.permutation.to_a
   end
 
-  def generate_scores
+  def branch_scores
     scores = []
     tree.each do |branch|
-      scores.push(branch_score(branch))
+      scores.push(score(branch))
+    end
+    scores
+  end
+
+  def minimax
+    scores = branch_scores
+    (2...@board.count(nil)).each do |level|
+      scores = scores.each_slice(level).to_a
+      scores.map!(&:min) unless max?(level)
+      scores.map!(&:max) if max?(level)
     end
     scores
   end
 
   private
 
-  def branch_score(branch)
+  def max?(level)
+    depth = level + @board.count(nil)
+    return true if depth.even?
+  end
+
+  def score(branch)
     board = @board.dup
     player = :O
     branch.each do |move|

@@ -34,19 +34,32 @@ describe AIPlayer do
 
   it 'will generate an array of scores based on the tree (3 spaces left)' do
     game_state = spy(state: [:O, :X, :O, :X, :X, nil, nil, :O, nil])
-    scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).generate_scores
+    scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).branch_scores
     expect(scores).to eq([10, 0, -10, 0, -10, 10])
   end
 
-  it 'will analyse the scores of every branch to assign a score to each next move' do
+  it 'will analyse the scores of every branch to assign a score to each next move with 4 possibilities' do
     game_state = spy(state: [:O, :X, :O, :X, :X, nil, nil, :O, nil])
     scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).minimax
     expect(scores).to eq([0, -10, -10])
   end
 
-  it 'will analyse the scores of every branch to assign a score to each next move' do
+  it 'will analyse the scores of every branch and play in the correct place with 3 possibilities' do
     game_state = spy(state: [:O, :X, :O, :X, :X, nil, nil, :O, nil])
     AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
     expect(game_state).to have_received(:save).with([:O, :X, :O, :X, :X, :O, nil, :O, nil])
+  end
+
+
+  it 'will generate an array of scores based on the tree (4 spaces left)' do
+    game_state = spy(state: [:X, :O, :X, :O, nil, nil, :X, nil, nil])
+    scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).branch_scores
+    expect(scores).to eq([10, 0, 10, 0, 10, 10, -10, -10, 10, -10, 10, -10, -10, -10, 10, -10, 10, -10, -10, -10, 0, -10, 0, -10])
+  end
+
+  it 'will analyse the scores of every branch to assign a score to each next move with 4 possibilities' do
+    game_state = spy(state: [:X, :O, :X, :O, nil, nil, :X, nil, nil])
+    scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).minimax
+    expect(scores).to eq([10, -10, -10, -10])
   end
 end
