@@ -5,7 +5,7 @@ class HumanPlayer
     @update_grid = update_grid
   end
 
-  def has_turn(position)
+  def plays(position)
     return { errors: [:space_is_taken] } if space_is_taken?(position)
     return { errors: [:space_does_not_exist] } unless position.between?(0, 8)
     return { errors: [:one_turn_per_player] } if had_more_turns?
