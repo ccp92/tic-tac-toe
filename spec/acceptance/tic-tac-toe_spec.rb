@@ -31,7 +31,7 @@ describe 'a game of tic-tac-toe' do
   end
 
   it 'allows a human to take a valid turn' do
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).plays(0)
     player_turn(1)
     response = view_grid.execute({})
     grid = response[:grid]
@@ -40,11 +40,11 @@ describe 'a game of tic-tac-toe' do
 
   it 'returns a win with three Os in a row' do
     player_turn(1)
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(0)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).plays(0)
     player_turn(2)
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(3)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).plays(3)
     player_turn(4)
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(6)
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).plays(6)
     response = view_grid.execute({})
     expect(response).to eq(grid: [[:O, :X, :X], [:O, :X, nil], [:O, nil, nil]], result: :winner)
   end
@@ -166,7 +166,7 @@ describe 'a game of tic-tac-toe' do
   end
 
   def player_turn(position)
-    HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).has_turn(position)
+    HumanPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).plays(position)
   end
 
   def ai_turn

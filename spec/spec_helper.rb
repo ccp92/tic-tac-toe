@@ -2,6 +2,7 @@ require 'view_grid'
 require 'ai_plays'
 require 'human_plays'
 require 'update_grid'
+require 'minimax'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -16,6 +17,7 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+
     begin
       config.filter_run_when_matching :focus
       config.run_all_when_everything_filtered
