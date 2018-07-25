@@ -113,6 +113,13 @@ describe 'a game of tic-tac-toe' do
     expect(response).to eq(errors: [:one_turn_per_player])
   end
 
+  it 'will make the ai pick the winning move out of two choices' do
+    new_board = board_set_up([:X, 0], [:O, 1], [:X, 5], [:O, 4])
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute({})
+    response = response = view_grid.execute({})
+    expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, :X], [nil, :O, nil]], result: :winner)
+  end
+
   private
 
   def board_set_up(*args)

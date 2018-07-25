@@ -33,11 +33,6 @@ class UpdateGrid
 
   def vertical_lines
     [places(0, 3, 6), places(1, 4, 7), places(2, 5, 8)]
-    # vertical_wins = []
-    # (0..2).each do |i|
-    #   vertical_wins.push(places(i, i + 3, i + 6))
-    # end
-    # vertical_wins
   end
 
   def diagonal_lines
