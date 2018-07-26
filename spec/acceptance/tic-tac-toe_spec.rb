@@ -145,7 +145,7 @@ describe 'a game of tic-tac-toe' do
     expect(response).to eq(grid: [[:X, :O, nil], [:O, :O, :X], [:X, nil, nil]], result: nil)
   end
 
-  xit 'will make the ai play to a draw against a perfect human' do
+  it 'will make the ai play to a draw against a perfect human' do
     player_turn(0)
     ai_turn
     player_turn(8)

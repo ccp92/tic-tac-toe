@@ -50,7 +50,6 @@ class Minimax
     end
   end
 
-
   def player_switch(player)
     return :X if player == :O
     :O
