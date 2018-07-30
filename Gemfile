@@ -9,3 +9,4 @@ gem 'rspec'
 gem 'rubocop'
 gem 'guard-rspec', require: false
 gem 'sinatra'
+gem 'rerun'

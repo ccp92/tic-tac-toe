@@ -1,20 +1,9 @@
 # frozen_string_literal: true
 
 describe 'a game of tic-tac-toe' do
-  class GameStatePosition
-    attr_reader :state
-    attr_reader :result
-
-    def save(state)
-      @state = state
-    end
-
-    def save_result(result)
-      @result = result
-    end
+  def game_state
+    DiskBasedMemory.new
   end
-
-  let(:game_state) { GameStatePosition.new }
 
   let(:view_grid) { ViewGrid.new(game_state: game_state) }
 
