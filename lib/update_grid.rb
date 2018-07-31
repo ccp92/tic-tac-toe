@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class UpdateGrid
-  attr_reader :game_state
-
   def initialize(game_state:)
     @game_state = game_state
     initial_state = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
@@ -10,8 +8,9 @@ class UpdateGrid
   end
 
   def execute(player, position)
-    @game_state.state[position] = player
-    @game_state.save(@game_state.state)
+    @copy = @game_state.state.dup
+    @copy[position] = player
+    @game_state.save(@copy)
     @game_state.save_result(:draw) unless spaces_remain?
     @game_state.save_result(:winner) if winner?
   end
@@ -24,7 +23,7 @@ class UpdateGrid
   end
 
   def spaces_remain?
-    @game_state.state.include?(nil)
+    @copy.include?(nil)
   end
 
   def horizontal_lines
@@ -40,6 +39,6 @@ class UpdateGrid
   end
 
   def places(place1, place2, place3)
-    @game_state.state.values_at(place1, place2, place3)
+    @copy.values_at(place1, place2, place3)
   end
 end

@@ -4,7 +4,7 @@
 require 'sinatra'
 require 'view_grid'
 require 'update_grid'
-require 'file_gateway'
+require 'disk_based_memory'
 
 class GameStatePosition
   attr_reader :state
@@ -21,7 +21,7 @@ end
 
 get '/' do
   @game_state = GameStatePosition.new
-  memory = FileGateway.new(@game_state)
+  memory = DiskBasedMemory.new
   response = ViewGrid.new(game_state: memory).execute({})
   # puts params
   # response = ViewGrid.new(game_state: @game_state).execute({})
