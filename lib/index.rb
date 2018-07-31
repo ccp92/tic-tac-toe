@@ -6,26 +6,13 @@ require 'view_grid'
 require 'update_grid'
 require 'disk_based_memory'
 
-class GameStatePosition
-  attr_reader :state
-  attr_reader :result
-
-  def save(state)
-    @state = state
-  end
-
-  def save_result(result)
-    @result = result
-  end
-end
 
 get '/' do
-  @game_state = GameStatePosition.new
   memory = DiskBasedMemory.new
   response = ViewGrid.new(game_state: memory).execute({})
   # puts params
   # response = ViewGrid.new(game_state: @game_state).execute({})
-  grid = response[:grid]
+  grid = memory.state
   erb :index, locals: { grid: grid }
 end
 
