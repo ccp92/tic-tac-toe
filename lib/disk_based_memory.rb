@@ -36,7 +36,7 @@ class DiskBasedMemory
   def delete_all
     running_dir = File.dirname(__FILE__)
     running_dir = Dir.pwd if (running_dir == '.')
-    File.open(running_dir + '/memory', 'w') {|file| file.truncate(0) }
+    save([nil, nil, nil, nil, nil, nil, nil, nil, nil])
     File.open(running_dir + '/result', 'w') {|file| file.truncate(0) }
   end
 end

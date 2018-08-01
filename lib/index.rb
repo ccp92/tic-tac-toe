@@ -25,3 +25,12 @@ post '/make-move/:id' do
   AIPlayer.new(update_grid: update_grid, game_state: memory).execute
   redirect '/'
 end
+
+
+post '/reset' do
+  memory = DiskBasedMemory.new
+  memory.delete_all
+
+  redirect '/'
+end
+

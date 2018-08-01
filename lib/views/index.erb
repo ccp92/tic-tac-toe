@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <h1>Current Board State:</h1>
-    <link rel="stylesheet" href="/styles.css"/>
-  <p><%= grid %></p>
-  <table>
+  <h1>TIC TAC TOE</h1>
+       <h1> <form id="form-reset" method="post" action="/reset"><button class=reset> RESET</button></form></h1>
+    <link rel="stylesheet" href="/styles.css"/>  
+  <table id=MyTable>
     <tr>
       <td><form method="post" action="/make-move/0"><button><%= grid[0] %></button></form></td>
       <td><form method="post" action="/make-move/1"><button><%= grid[1] %></button></form></td>
@@ -20,4 +20,5 @@
       <td><form method="post" action="/make-move/8"><button><%= grid[8] %></button></form></td>
     </tr>
   </table>
+
 </html>
