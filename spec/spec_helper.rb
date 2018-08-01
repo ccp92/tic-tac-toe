@@ -3,6 +3,7 @@ require 'ai_plays'
 require 'human_plays'
 require 'update_grid'
 require 'minimax'
+require 'disk_based_memory'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

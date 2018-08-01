@@ -1,13 +1,14 @@
 # frozen_String_literal: true
 
 class AIPlayer
-  def initialize(update_grid:)
+  def initialize(update_grid:, game_state:)
     @update_grid = update_grid
-    @board = update_grid.game_state.state
+    @game_state = game_state
+    @board = @game_state.state
   end
 
   def execute
-    empty_spaces = Minimax.new(update_grid: @update_grid).find_empty_spaces
+    empty_spaces = Minimax.new(board: @board).find_empty_spaces
     best_turn = minimax.index(minimax.max)
     plays(empty_spaces[best_turn])
   end
@@ -18,14 +19,6 @@ class AIPlayer
   end
 
   def minimax
-    Minimax.new(update_grid: @update_grid).minimax
-  end
-
-  private
-
-  def find_empty_spaces
-    empty_spaces = []
-    @board.each_index { |i| empty_spaces.push(i) if @board[i].nil? }
-    empty_spaces
+    Minimax.new(board: @board).minimax
   end
 end
