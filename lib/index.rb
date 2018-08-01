@@ -5,7 +5,9 @@ require 'sinatra'
 require 'view_grid'
 require 'update_grid'
 require 'disk_based_memory'
-
+require 'human_plays'
+require 'ai_plays'
+require 'minimax'
 
 get '/' do
   memory = DiskBasedMemory.new
@@ -16,11 +18,10 @@ get '/' do
   erb :index, locals: { grid: grid }
 end
 
-post '/make-move/0' do
-  "Action Run"
-  # puts params
-  # UpdateGrid.new(:X, 0)
-  # response = ViewGrid.new(game_state: @game_state).execute({})
-  # grid = response[:grid]
-  # erb :index, locals: { grid: grid }
+post '/make-move/:id' do
+  memory = DiskBasedMemory.new
+  update_grid = UpdateGrid.new(game_state: memory)
+  HumanPlayer.new(update_grid: update_grid, game_state: memory).plays(params[:id].to_i)
+  AIPlayer.new(update_grid: update_grid, game_state: memory).execute
+  redirect '/'
 end
