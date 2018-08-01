@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
   <h1>Current Board State:</h1>
+    <link rel="stylesheet" href="/styles.css"/>
   <p><%= grid %></p>
   <table>
     <tr>
-      <td><form method="post" action="/make-move/0"><button/></form></td>
-      <td><form method="post" action="/make-move/1"><button/></form></td>
-      <td><form method="post" action="/make-move/2"><button/></form></td>
+      <td><form method="post" action="/make-move/0"><button><%= grid[0] %></button></form></td>
+      <td><form method="post" action="/make-move/1"><button><%= grid[1] %></button></form></td>
+      <td><form method="post" action="/make-move/2"><button><%= grid[2] %></button></form></td>
     </tr>
     <tr>
-      <td><form method="post" action="/make-move/3"><button/></form></td>
-      <td><form method="post" action="/make-move/4"><button/></form></td>
-      <td><form method="post" action="/make-move/5"><button/></form></td>
+      <td><form method="post" action="/make-move/3"><button><%= grid[3] %></button></form></td>
+      <td><form method="post" action="/make-move/4"><button><%= grid[4] %></button></form></td>
+      <td><form method="post" action="/make-move/5"><button><%= grid[5] %></button></form></td>
     </tr>
     <tr>
-      <td><form method="post" action="/make-move/6"><button/></form></td>
-      <td><form method="post" action="/make-move/7"><button/></form></td>
-      <td><form method="post" action="/make-move/8"><button/></form></td>
+      <td><form method="post" action="/make-move/6"><button><%= grid[6] %></button></form></td>
+      <td><form method="post" action="/make-move/7"><button><%= grid[7] %></button></form></td>
+      <td><form method="post" action="/make-move/8"><button><%= grid[8] %></button></form></td>
     </tr>
   </table>
 </html>
