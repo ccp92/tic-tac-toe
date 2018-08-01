@@ -28,18 +28,7 @@ describe 'a game of tic-tac-toe' do
     grid = response[:grid]
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
-
-  # it 'returns a win with three Os in a row', focus: true do
-  #   player_turn(1)
-  #   AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).plays(0)
-  #   player_turn(2)
-  #   AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).plays(3)
-  #   player_turn(4)
-  #   AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).plays(6)
-  #   response = view_grid.execute({})
-  #   expect(response).to eq(grid: [[:O, :X, :X], [:O, :X, nil], [:O, nil, nil]], result: :winner)
-  # end
-
+  
   it 'can return a win with 0s on top row' do
     response = board_set_up([:X, 7], [:O, 1], [:X, 3], [:O, 2], [:X, 5], [:O, 0])
 

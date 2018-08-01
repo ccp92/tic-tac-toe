@@ -5,7 +5,7 @@ describe DiskBasedMemory do
   before { memory.delete_all }
 
   it 'has a state of nil' do
-    expect(memory.state).to eq(nil)
+    expect(memory.state).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil])
   end
 
   it 'has a result of nil' do

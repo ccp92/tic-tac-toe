@@ -5,6 +5,13 @@ h1 {
   font-family: sans-serif;
 }
 
+h2 {
+  color: #e53935 !important;
+  font-size: 50px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
 body {
   background-color: #81C784;
 }
@@ -47,13 +54,17 @@ td {
   text-align: center;
   }
 
-   #MyTable button:hover { 
-    background-color: #1b5e20;
+ #MyTable td:hover, button:hover { 
+  background-color: #1b5e20;
+ }
+
+ #form-reset button:hover {
+  background-color: #1b5e20;
  }
  
  button {
-   height: 170px;
-   width: 170px;
+   height: 200px;
+   width: 200px;
    padding: 0px;
    border: none;
    background-color: whitesmoke;
@@ -63,10 +74,16 @@ td {
 
  .reset {
   height: 50px;
-  width: 100px;
-  padding: 0px;
+  width: 150px;
   border: none;
   background-color: #e53935;
   font-size: 30px;
   color: whitesmoke;
+  border-radius: 20px;
+ }
+
+ footer {
+  text-align: center;
+  color: whitesmoke;
+  font-family: sans-serif;
  }
