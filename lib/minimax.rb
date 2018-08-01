@@ -44,8 +44,6 @@ class Minimax
     end
   end
 
-<<<<<<< HEAD
-=======
   def max?(level)
     depth = level + @board.count(nil)
     depth.even?
@@ -53,7 +51,6 @@ class Minimax
 
 
 
->>>>>>> master
   def player_switch(player)
     return :X if player == :O
     :O
