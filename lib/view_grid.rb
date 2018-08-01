@@ -8,7 +8,8 @@ class ViewGrid
   def execute(*)
     if @game_state.state.nil?
       {
-        grid: [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+        grid: [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]],
+        result: nil
       }
     else
       {

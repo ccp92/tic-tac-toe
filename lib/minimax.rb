@@ -1,9 +1,8 @@
 #frozen_string_literal: true
 
 class Minimax
-  def initialize(update_grid:)
-    @update_grid = update_grid
-    @board = update_grid.game_state.state
+  def initialize(board:)
+    @board = board
   end
 
   def tree
@@ -35,11 +34,6 @@ class Minimax
 
   private
 
-  def max?(level)
-    depth = level + @board.count(nil)
-    depth.even?
-  end
-
   def score(branch)
     board = @board.dup
     player = :O
@@ -50,6 +44,16 @@ class Minimax
     end
   end
 
+<<<<<<< HEAD
+=======
+  def max?(level)
+    depth = level + @board.count(nil)
+    depth.even?
+  end
+
+
+
+>>>>>>> master
   def player_switch(player)
     return :X if player == :O
     :O
