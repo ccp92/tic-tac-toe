@@ -1,30 +1,42 @@
 # frozen_string_literal: true
 
 class DiskBasedMemory
+
+
   def state
-    output = eval(File.read("memory"))
-    @state = output unless File.read("memory") == ''
+    running_dir = File.dirname(__FILE__)
+    running_dir = Dir.pwd if (running_dir == '.')
+    output = eval(File.read(running_dir + '/memory'))
+    @state = output unless File.read(running_dir + "/memory") == ''
   end
 
   def result
-    output = File.read("result").to_sym
-    @result = output unless File.read("result") == ''
+    running_dir = File.dirname(__FILE__)
+    running_dir = Dir.pwd if (running_dir == '.')
+    output = File.read(running_dir + "/result").to_sym
+    @result = output unless File.read(running_dir + "/result") == ''
   end
 
   def save(state)
-    file = File.new('memory', 'w')
+    running_dir = File.dirname(__FILE__)
+    running_dir = Dir.pwd if (running_dir == '.')
+    file = File.new(running_dir + '/memory', 'w')
     file.write(state)
     file.close
   end
 
   def save_result(result)
-    file = File.new('result', 'w')
+    running_dir = File.dirname(__FILE__)
+    running_dir = Dir.pwd if (running_dir == '.')
+    file = File.new(running_dir + '/result', 'w')
     file.write(result)
     file.close
   end
 
   def delete_all
-    File.open('memory', 'w') {|file| file.truncate(0) }
-    File.open('result', 'w') {|file| file.truncate(0) }
+    running_dir = File.dirname(__FILE__)
+    running_dir = Dir.pwd if (running_dir == '.')
+    File.open(running_dir + '/memory', 'w') {|file| file.truncate(0) }
+    File.open(running_dir + '/result', 'w') {|file| file.truncate(0) }
   end
 end
