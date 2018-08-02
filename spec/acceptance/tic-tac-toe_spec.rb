@@ -28,7 +28,7 @@ describe 'a game of tic-tac-toe' do
     grid = response[:grid]
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
-  
+
   it 'can return a win with 0s on top row' do
     response = board_set_up([:X, 7], [:O, 1], [:X, 3], [:O, 2], [:X, 5], [:O, 0])
 

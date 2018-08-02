@@ -23,7 +23,7 @@ describe AIPlayer do
   it 'will analyse the scores for each branch to assign a score to the next moves with 4 options' do
     game_state = spy(state: [:O, :X, :O, :X, :X, nil, nil, :O, nil])
     scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).minimax
-    expect(scores).to eq([0, -10, -10])
+    expect(scores).to eq([1, -8, -8])
   end
 
   it 'will analyse the scores for each branch and play in the correct place with 3 options' do
@@ -35,12 +35,12 @@ describe AIPlayer do
   it 'will analyse the scores for each branch to assign a score to the next moves with 4 options' do
     game_state = spy(state: [:X, :O, :X, :O, nil, nil, :X, nil, nil])
     scores = AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).minimax
-    expect(scores).to eq([10, -10, -10, -10])
+    expect(scores).to eq([12, -7, -7, -7])
   end
 
   it 'will chose the quickest route to a win' do
     game_state = spy(state: [:X, :O, nil, nil, :O, :X, nil, nil, nil])
-    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state)).execute
+    AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).execute
     expect(game_state).to have_received(:save).with([:X, :O, nil, nil, :O, :X, nil, :O, nil])
   end
 end

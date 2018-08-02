@@ -16,13 +16,12 @@ describe Minimax do
   it 'will generate an array of scores based on the tree (3 spaces left)' do
     board = [:O, :X, :O, :X, :X, nil, nil, :O, nil]
     scores = Minimax.new(board: board).branch_scores
-    expect(scores).to eq([10, 0, -10, 0, -10, 10])
+    expect(scores).to eq([11, 1, -8, 1, -8, 11])
   end
 
   it 'will generate an array of scores based on the tree (4 spaces left)' do
     board = [:X, :O, :X, :O, nil, nil, :X, nil, nil]
     scores = Minimax.new(board: board).branch_scores
-    expect(scores).to eq([10, 0, 10, 0, 10, 10, -10, -10, 10, -10, 10, -10, -10,
-                          -10, 10, -10, 10, -10, -10, -10, 0, -10, 0, -10])
+    expect(scores).to eq([12, 1, 12, 1, 12, 12, -7, -7, 12, -9, 12, -9, -7, -7, 12, -9, 12, -9, -7, -7, 1, -9, 1, -9])
   end
 end
