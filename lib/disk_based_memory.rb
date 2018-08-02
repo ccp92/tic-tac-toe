@@ -6,6 +6,20 @@ class DiskBasedMemory
   def state
     running_dir = File.dirname(__FILE__)
     running_dir = Dir.pwd if (running_dir == '.')
+
+    # string = File.read(running_dir + '/memory')
+    # string[0] = ''
+    # string[-1] = ''
+    # array = string.split(', ')
+    # array.each do |element|
+    #   if element == 'nil'
+    #     element = nil
+    #   else
+    #     element = element.to_sym
+    #   end
+    # end
+    # pp array
+
     output = eval(File.read(running_dir + '/memory'))
     @state = output unless File.read(running_dir + "/memory") == ''
   end
