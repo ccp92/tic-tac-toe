@@ -34,10 +34,17 @@ def board
   memory = DiskBasedMemory.new
   response = ViewGrid.new(game_state: memory).execute({})
   grid = memory.state
-  return puts 'Computer wins' if memory.result == :winner
-  return puts 'Draw' if memory.result == :draw
   output = convert_to_cli(grid)
   puts "#{output}"
+  if memory.result == :winner
+    puts "\n~~~~~~~~~"
+    puts "#{output}"
+    return puts 'Computer wins'
+  elsif memory.result == :draw
+    puts "\n~~~~~~~~~"
+    puts "#{output}"
+    return puts 'Draw'
+  end
   puts 'Your move:'
   human_move = gets.chomp.to_i - 1
   play(human_move)
