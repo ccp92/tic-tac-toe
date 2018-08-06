@@ -3,6 +3,7 @@
 describe DiskBasedMemory do
   let(:memory) { DiskBasedMemory.new }
   before { memory.delete_all }
+  after { memory.delete_all }
 
   it 'has a state of nil' do
     expect(memory.state).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil])

@@ -13,7 +13,9 @@ def end_of_game?(memory)
 end
 
 def convert_to_cli(grid)
-  "[#{grid[0].nil? ? ' ' : grid[0]}][#{grid[1].nil? ? ' ' : grid[1]}][#{grid[2].nil? ? ' ' : grid[2]}]\n[#{grid[3].nil? ? ' ' : grid[3]}][#{grid[4].nil? ? ' ' : grid[4]}][#{grid[5].nil? ? ' ' : grid[5]}]\n[#{grid[6].nil? ? ' ' : grid[6]}][#{grid[7].nil? ? ' ' : grid[7]}][#{grid[8].nil? ? ' ' : grid[8]}]"
+  "[#{grid[0] || ' '}][#{grid[1] || ' '}][#{grid[2] || ' '}]\n" +
+  "[#{grid[3] || ' '}][#{grid[4] || ' '}][#{grid[5] || ' '}]\n" +
+  "[#{grid[6] || ' '}][#{grid[7] || ' '}][#{grid[8] || ' '}]"
 end
 
 def play(position)
