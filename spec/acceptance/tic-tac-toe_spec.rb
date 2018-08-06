@@ -28,7 +28,7 @@ describe 'a game of tic-tac-toe' do
     grid = response[:grid]
     expect(grid).to eq([[:O, :X, nil], [nil, nil, nil], [nil, nil, nil]])
   end
-  
+
   it 'can return a win with 0s on top row' do
     response = board_set_up([:X, 7], [:O, 1], [:X, 3], [:O, 2], [:X, 5], [:O, 0])
 
@@ -132,6 +132,13 @@ describe 'a game of tic-tac-toe' do
     ai_turn
     response = view_grid.execute({})
     expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, nil], [nil, nil, :X]], result: nil)
+  end
+
+  it 'will make the ai pick the winning move out of two choices' do
+    new_board = board_set_up([:X, 0], [:O, 1], [:X, 5], [:O, 4])
+    ai_turn
+    response = view_grid.execute({})
+    expect(response).to eq(grid: [[:X, :O, nil], [nil, :O, :X], [nil, :O, nil]], result: :winner)
   end
 
   private

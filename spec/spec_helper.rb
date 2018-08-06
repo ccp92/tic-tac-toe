@@ -1,5 +1,5 @@
 require 'view_grid'
-require 'ai_plays'
+require 'ai_player'
 require 'human_plays'
 require 'update_grid'
 require 'minimax'

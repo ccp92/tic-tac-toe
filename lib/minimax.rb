@@ -38,9 +38,10 @@ class Minimax
     board = @board.dup
     player = :O
     branch.each do |move|
+      depth = board.count(nil)
       board[move] = player
       player = player_switch(player)
-      return assign_a_score(board) unless assign_a_score(board).nil?
+      return assign_a_score(board, depth) unless assign_a_score(board, depth).nil?
     end
   end
 
@@ -56,10 +57,10 @@ class Minimax
     :O
   end
 
-  def assign_a_score(board)
-    return 10 if winner?(:O, board)
-    return -10 if winner?(:X, board)
-    return 0 unless spaces_remain?(board)
+  def assign_a_score(board, depth)
+    return 10 + depth if winner?(:O, board)
+    return -10 + depth if winner?(:X, board)
+    return 0 + depth unless spaces_remain?(board)
   end
 
   def winner?(player, board)

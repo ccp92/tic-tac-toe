@@ -6,14 +6,14 @@ require 'view_grid'
 require 'update_grid'
 require 'disk_based_memory'
 require 'human_plays'
-require 'ai_plays'
+require 'ai_player'
 require 'minimax'
 
 get '/' do
   memory = DiskBasedMemory.new
   response = ViewGrid.new(game_state: memory).execute({})
   grid = memory.state
-  result = 'Computer wins' if memory.result == :winner  
+  result = 'Computer wins' if memory.result == :winner
   result = 'Draw' if memory.result == :draw
   erb :index, locals: { grid: grid, result: result }
 end
@@ -26,7 +26,7 @@ post '/make-move/:id' do
   else
     HumanPlayer.new(update_grid: update_grid, game_state: memory).plays(params[:id].to_i)
     AIPlayer.new(update_grid: update_grid, game_state: memory).execute unless memory.result == :draw
-  end  
+  end
   redirect '/'
 end
 
