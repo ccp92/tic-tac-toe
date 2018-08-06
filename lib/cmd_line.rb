@@ -35,17 +35,17 @@ def board
   response = ViewGrid.new(game_state: memory).execute({})
   grid = memory.state
   output = convert_to_cli(grid)
-  puts "#{output}"
   if memory.result == :winner
-    puts "\n~~~~~~~~~"
-    puts "#{output}"
-    return puts 'Computer wins'
+    puts "\n"
+    puts "#{output}\n"
+    return puts "\nComputer wins"
   elsif memory.result == :draw
-    puts "\n~~~~~~~~~"
+    puts "\n"
     puts "#{output}"
-    return puts 'Draw'
+    return puts "\nDraw"
   end
-  puts 'Your move:'
+  puts "\n#{output}"
+  puts "\nYour move:"
   human_move = gets.chomp.to_i - 1
   play(human_move)
 end
@@ -58,4 +58,3 @@ if starting_input == 'y'
 else
   puts 'Game Aborted'
 end
-
