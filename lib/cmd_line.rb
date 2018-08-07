@@ -37,7 +37,7 @@ def board
   output = convert_to_cli(grid)
   if memory.result == :winner
     puts "\n"
-    puts "#{output}\n"
+    puts "#{output}"
     return puts "\nComputer wins"
   elsif memory.result == :draw
     puts "\n"
