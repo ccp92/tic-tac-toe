@@ -4,7 +4,7 @@ require 'json'
 
 class DiskBasedMemory
   def state
-    running_dir = File.dirname(__FILE__)
+    running_dir = __dir__
     board = JSON.parse(File.read(running_dir + '/memory'))
     board.map! { |element| element.to_sym unless element.nil?}
     @state = board unless File.read(running_dir + "/memory") == ''
