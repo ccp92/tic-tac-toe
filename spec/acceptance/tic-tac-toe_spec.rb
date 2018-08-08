@@ -9,6 +9,10 @@ describe 'a game of tic-tac-toe' do
     game_state.delete_all
   end
 
+  after do
+    game_state.delete_all
+  end
+
   it 'starts a game by displaying an empty board' do
     response = view_grid.execute({})
     grid = response[:grid]
