@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
 class DiskBasedMemory
-
-
   def state
     running_dir = File.dirname(__FILE__)
     running_dir = Dir.pwd if (running_dir == '.')
 
-    # string = File.read(running_dir + '/memory')
-    # string[0] = ''
-    # string[-1] = ''
-    # array = string.split(', ')
-    # array.each do |element|
-    #   if element == 'nil'
-    #     element = nil
-    #   else
-    #     element = element.to_sym
-    #   end
-    # end
-    # pp array
+    string = File.read(running_dir + '/memory')
+    string.slice!('[')
+    string.chomp!(']')
+    array = string.split(', ')
+    array.map! do |element|
+      :O if element == ":O"
+      :X if element == ":X"
+      nil if element == "nil"
+    end
 
     output = eval(File.read(running_dir + '/memory'))
+    pp "file = #{string}" if array != output
+    pp "array = #{array}" if array != output
+    pp "output = #{output}" if array != output
     @state = output unless File.read(running_dir + "/memory") == ''
   end
 

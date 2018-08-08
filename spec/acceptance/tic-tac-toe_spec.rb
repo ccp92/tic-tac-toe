@@ -21,7 +21,7 @@ describe 'a game of tic-tac-toe' do
     expect(grid).to eq([[:O, nil, nil], [nil, nil, nil], [nil, nil, nil]])
   end
 
-  it 'allows a human to take a valid turn' do
+  it 'allows a human to take a valid turn', focus: true do
     AIPlayer.new(update_grid: UpdateGrid.new(game_state: game_state), game_state: game_state).plays(0)
     player_turn(1)
     response = view_grid.execute({})
