@@ -1,25 +1,14 @@
 # frozen_string_literal: true
 
+require 'json'
+
 class DiskBasedMemory
   def state
     running_dir = File.dirname(__FILE__)
     running_dir = Dir.pwd if (running_dir == '.')
-
-    string = File.read(running_dir + '/memory')
-    string.slice!('[')
-    string.chomp!(']')
-    array = string.split(', ')
-    array.map! do |element|
-      :O if element == ":O"
-      :X if element == ":X"
-      nil if element == "nil"
-    end
-
-    output = eval(File.read(running_dir + '/memory'))
-    pp "file = #{string}" if array != output
-    pp "array = #{array}" if array != output
-    pp "output = #{output}" if array != output
-    @state = output unless File.read(running_dir + "/memory") == ''
+    board = JSON.parse(File.read(running_dir + '/memory'))
+    board.map! { |element| element.to_sym if !element.nil?}
+    @state = board unless File.read(running_dir + "/memory") == ''
   end
 
   def result
@@ -33,7 +22,7 @@ class DiskBasedMemory
     running_dir = File.dirname(__FILE__)
     running_dir = Dir.pwd if (running_dir == '.')
     file = File.new(running_dir + '/memory', 'w')
-    file.write(state)
+    file.write(state.to_json)
     file.close
   end
 
