@@ -38,10 +38,12 @@ def board
   if memory.result == :winner
     puts "\n"
     puts "#{output}"
+    memory.delete_all
     return puts "\nComputer wins"
   elsif memory.result == :draw
     puts "\n"
     puts "#{output}"
+    memory.delete_all
     return puts "\nDraw"
   end
   puts "\n#{output}"

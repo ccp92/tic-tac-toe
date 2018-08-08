@@ -13,8 +13,13 @@ get '/' do
   memory = DiskBasedMemory.new
   response = ViewGrid.new(game_state: memory).execute({})
   grid = memory.state
-  result = 'Computer wins' if memory.result == :winner
-  result = 'Draw' if memory.result == :draw
+  if memory.result == :winner
+    result = 'Computer wins'
+    memory.delete_all
+  elsif memory.result == :draw
+    result = 'Draw'
+    memory.delete_all
+  end
   erb :index, locals: { grid: grid, result: result }
 end
 
