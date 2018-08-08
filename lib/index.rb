@@ -26,7 +26,7 @@ end
 post '/make-move/:id' do
   memory = DiskBasedMemory.new
   update_grid = UpdateGrid.new(game_state: memory)
-  if end_of_game?(memory)
+  if end_of_game?(memory) || !memory.state[params[:id].to_i].nil?
     nil
   else
     HumanPlayer.new(update_grid: update_grid, game_state: memory).plays(params[:id].to_i)
