@@ -38,16 +38,23 @@ def board
   if memory.result == :winner
     puts "\n"
     puts "#{output}"
+    memory.delete_all
     return puts "\nComputer wins"
   elsif memory.result == :draw
     puts "\n"
     puts "#{output}"
+    memory.delete_all
     return puts "\nDraw"
   end
   puts "\n#{output}"
   puts "\nYour move:"
   human_move = gets.chomp.to_i - 1
-  play(human_move)
+  unless grid[human_move].nil?
+    puts "Invalid move"
+    board
+  else
+    play(human_move)
+  end
 end
 
 if starting_input == 'y'
